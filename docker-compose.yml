@@ -1,0 +1,21 @@
+version: '3.5'
+
+services:
+  site_name:
+    build:
+      args:
+        user: ${DOCKER_USER}
+        uid: ${DOCKER_UID}
+      context: ./
+      dockerfile: Dockerfile
+    container_name: site_name_ctr
+    env_file:
+      - .env
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - default
+    ports:
+      - 7000:80
+    entrypoint: /docker-entrypoint.sh
